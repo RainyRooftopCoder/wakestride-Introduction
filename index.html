@@ -187,6 +187,22 @@
     margin: 0 auto;
   }
 
+  /* 스크롤 리빌 — 섹션이 화면에 들어오면 이미지가 먼저, 텍스트가 살짝 늦게
+     페이드인(2026-08-09, "스크롤 내리면 이미지 서서히 생기다가 설명도
+     서서히 생기고"). JS(IntersectionObserver)가 .is-visible을 붙이는
+     시점은 하나지만, 이미지/텍스트 각각의 transition-delay로 순서를 냄.
+     JS가 어떤 이유로든 안 붙어도(구형 브라우저 등) 3초 뒤 폴백으로 전부
+     보이게 해서 영구히 숨겨지는 사고를 방지. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .feature .reveal.shot-frame,
+  .feature .reveal.switcher { transition-delay: 0s; }
+  .feature .reveal.feature-head { transition-delay: 0.28s; }
+
   /* 모바일 섹션 — 탭을 눌러 매트릭스/캘린더 스크린샷과 설명 문구가 같이
      바뀌는 인터랙티브 전환(2026-08-09, "단순 나열 말고 동적으로"). 이미지는
      겹쳐 쌓아두고 opacity/transform만 토글해서 레이아웃 흔들림 없이 전환. */
@@ -221,24 +237,41 @@
     background: var(--accent);
     color: #fff;
   }
+  /* 캡션 두 개를 같은 grid 칸에 겹쳐두고 opacity만 크로스페이드 — 텍스트도
+     "나왔다 사라졌다" 부드럽게 전환되도록(2026-08-09), 레이아웃 흔들림
+     없이 높이는 더 긴 쪽 문구 기준으로 고정됨. */
+  .switcher-caption-stack {
+    display: grid;
+    margin: 0 0 1.6rem;
+  }
   .switcher-caption {
+    grid-area: 1 / 1;
     text-align: center;
     color: var(--ink-dim);
     font-size: 0.92rem;
-    min-height: 2.7em;
-    margin: 0 0 1.6rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .switcher-caption.is-active {
+    opacity: 1;
+    pointer-events: auto;
   }
   .switcher-stage {
     position: relative;
     width: 100%;
     aspect-ratio: 1082 / 2402;
   }
+  /* 전환 시간을 늘리고 스케일 폭도 키워서 두 이미지가 뚜렷하게 겹쳐
+     보이는 크로스디졸브를 만듦(2026-08-09, "이미지 두개가 겹치고") —
+     들어오는 이미지는 살짝 작은 상태에서 커지고, 나가는 이미지는
+     작아지며 사라져서 서로 겹치는 구간이 눈에 보이게. */
   .switcher-img {
     position: absolute;
     inset: 0;
     opacity: 0;
-    transform: scale(0.97);
-    transition: opacity 0.35s ease, transform 0.35s ease;
+    transform: scale(0.94);
+    transition: opacity 0.7s ease, transform 0.7s ease;
     pointer-events: none;
   }
   .switcher-img.is-active {
@@ -321,6 +354,9 @@
     html { scroll-behavior: auto; }
   }
 </style>
+<noscript>
+  <style>.reveal { opacity: 1 !important; transform: none !important; }</style>
+</noscript>
 </head>
 <body>
 
@@ -359,12 +395,12 @@
 
   <section id="matrix" class="feature">
     <div class="wrap">
-      <div class="feature-head">
+      <div class="feature-head reveal">
         <div class="eyebrow">우선순위</div>
         <h2>무엇부터 해야 할지,<br />고민하지 않게.</h2>
         <p>중요도와 긴급도, 두 가지 기준으로 할 일을 네 영역에 자동으로 나눕니다.<br />지금 진짜 해야 할 일이 선명해집니다.</p>
       </div>
-      <div class="shot-frame">
+      <div class="shot-frame reveal">
         <img src="images/matrix.png" alt="아이젠하워 매트릭스 화면" />
       </div>
     </div>
@@ -372,12 +408,12 @@
 
   <section id="calendar" class="feature">
     <div class="wrap">
-      <div class="feature-head">
+      <div class="feature-head reveal">
         <div class="eyebrow">일정</div>
         <h2>한 달과 하루를,<br />한 화면에서.</h2>
         <p>월간 그리드와 하루 일정이 나란히 놓입니다.<br />좌우로 넘기면 다음 달, 클릭 한 번이면 그날의 일정까지.</p>
       </div>
-      <div class="shot-frame">
+      <div class="shot-frame reveal">
         <img src="images/calendar.png" alt="월간 캘린더와 하루 일정 패널" />
       </div>
     </div>
@@ -385,12 +421,12 @@
 
   <section id="note" class="feature">
     <div class="wrap">
-      <div class="feature-head">
+      <div class="feature-head reveal">
         <div class="eyebrow">기록</div>
         <h2>쓰는 것과<br />해내는 것을 잇다.</h2>
         <p>마크다운으로 기록한 노트가 할 일·일정과 서로 연결됩니다.<br />맥락은 그대로, 흐름은 끊기지 않게.</p>
       </div>
-      <div class="shot-frame">
+      <div class="shot-frame reveal">
         <img src="images/note.png" alt="마크다운 노트 렌더링 화면" />
       </div>
     </div>
@@ -398,12 +434,12 @@
 
   <section id="dashboard" class="feature">
     <div class="wrap">
-      <div class="feature-head">
+      <div class="feature-head reveal">
         <div class="eyebrow">통계</div>
         <h2>얼마나 해냈는지,<br />숫자로 확인.</h2>
         <p>그룹별 진행률과 기한 준수율, 최근 사용량까지.<br />오늘의 성과를 한눈에 확인합니다.</p>
       </div>
-      <div class="shot-frame">
+      <div class="shot-frame reveal">
         <img src="images/dashboard.png" alt="대시보드 통계 화면" />
       </div>
     </div>
@@ -411,12 +447,12 @@
 
   <section id="tablet" class="feature">
     <div class="wrap">
-      <div class="feature-head">
+      <div class="feature-head reveal">
         <div class="eyebrow">태블릿 · 라이트 모드</div>
         <h2>넓은 화면은,<br />넓게 씁니다.</h2>
         <p>사이드바 내비게이션과 하루 일정 패널을 한 화면에.<br />라이트 테마에서도 색은 그대로, 톤만 밝게.</p>
       </div>
-      <div class="shot-frame">
+      <div class="shot-frame reveal">
         <img src="images/tablet-light.png" alt="태블릿 라이트 테마 캘린더 화면" />
       </div>
     </div>
@@ -424,18 +460,20 @@
 
   <section id="mobile" class="feature">
     <div class="wrap">
-      <div class="feature-head">
+      <div class="feature-head reveal">
         <div class="eyebrow">모바일 · 라이트 모드</div>
         <h2>한 손에 맞춘<br />네비게이션.</h2>
       </div>
 
-      <div class="switcher">
+      <div class="switcher reveal">
         <div class="switcher-tabs" role="tablist">
           <button class="switcher-tab is-active" data-target="matrix" role="tab" aria-selected="true">매트릭스</button>
           <button class="switcher-tab" data-target="calendar" role="tab" aria-selected="false">캘린더</button>
         </div>
-        <p class="switcher-caption" data-caption="matrix">화면을 다 차지하던 탭바 대신 좌하단 버튼 하나로. 각 화면은 매트릭스 사분면과 같은 색으로 구분됩니다.</p>
-        <p class="switcher-caption" data-caption="calendar" hidden>월간 달력과 하루 일정이 한 화면에. 우측 하단 버튼으로 월·일 보기를 빠르게 전환합니다.</p>
+        <div class="switcher-caption-stack">
+          <p class="switcher-caption is-active" data-caption="matrix">화면을 다 차지하던 탭바 대신 좌하단 버튼 하나로. 각 화면은 매트릭스 사분면과 같은 색으로 구분됩니다.</p>
+          <p class="switcher-caption" data-caption="calendar">월간 달력과 하루 일정이 한 화면에. 우측 하단 버튼으로 월·일 보기를 빠르게 전환합니다.</p>
+        </div>
         <div class="switcher-stage">
           <div class="switcher-img is-active shot-frame" data-target="matrix">
             <img src="images/phone-light-matrix-menu.png" alt="폰 매트릭스 화면과 내비게이션 메뉴" />
@@ -450,12 +488,12 @@
 
   <section id="widget" class="feature">
     <div class="wrap">
-      <div class="feature-head">
+      <div class="feature-head reveal">
         <div class="eyebrow">데스크톱 위젯</div>
         <h2>바탕화면에도,<br />그대로.</h2>
         <p>캘린더와 매트릭스를 바탕화면에 붙박이로 띄워두고,<br />앱을 열지 않아도 오늘 할 일을 바로 확인합니다.</p>
       </div>
-      <div class="widget-shot shot-frame">
+      <div class="widget-shot shot-frame reveal">
         <img src="images/widget-dark.png" alt="데스크톱 위젯 화면" />
       </div>
     </div>
@@ -511,10 +549,35 @@
           img.classList.toggle('is-active', img.dataset.target === target);
         });
         document.querySelectorAll('.switcher-caption').forEach(function (cap) {
-          cap.hidden = cap.dataset.caption !== target;
+          cap.classList.toggle('is-active', cap.dataset.caption === target);
         });
       });
     });
+
+    // 스크롤 리빌 — 섹션이 뷰포트에 들어오면 .reveal 요소에 is-visible을
+    // 붙임(2026-08-09). 한 번 보인 뒤에는 다시 스크롤을 올려도 그대로 —
+    // 매번 사라졌다 나타나는 건 부산스러워서 1회성으로.
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2, rootMargin: '0px 0px -8% 0px' },
+      );
+      revealEls.forEach(function (el) {
+        io.observe(el);
+      });
+    } else {
+      revealEls.forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+    }
   })();
 </script>
 
