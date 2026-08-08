@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WakeStride — 일의 순서를, 다시 정의하다</title>
+<style>
+  :root {
+    --bg: #000000;
+    --bg-panel: #0d0d10;
+    --ink: #f5f5f7;
+    --ink-dim: #a1a1a6;
+    --border: #1d1d20;
+    --accent: #6366f1;
+    --accent-soft: rgba(99, 102, 241, 0.16);
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Malgun Gothic', Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { display: block; max-width: 100%; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+  }
+
+  /* ---------- nav ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.4rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo-mark {
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5px;
+    background: #000;
+    padding: 1.5px;
+    flex-shrink: 0;
+  }
+  .logo-mark span:nth-child(1) { background: #e76e82; }
+  .logo-mark span:nth-child(2) { background: #70b8eb; }
+  .logo-mark span:nth-child(3) { background: #edbe6e; }
+  .logo-mark span:nth-child(4) { background: #9ca2ab; }
+
+  nav.links {
+    display: flex;
+    gap: 1.7rem;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+  }
+  nav.links a { text-decoration: none; color: inherit; transition: color 0.15s; }
+  nav.links a:hover { color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 6.5rem 0 3rem;
+    text-align: center;
+  }
+  .eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 0 0 1.2rem;
+    text-wrap: balance;
+  }
+  .hero h1 .accent-text {
+    background: linear-gradient(100deg, #6366f1, #a5a8fb 60%, #6366f1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero p {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--ink-dim);
+    max-width: 38rem;
+    margin: 0 auto 2.2rem;
+  }
+
+  .platform-pills {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.2rem;
+  }
+  .pill {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink-dim);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+  }
+  .pill b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- showcase frame ---------- */
+  .shot-frame {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #232326;
+    box-shadow:
+      0 30px 80px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.02);
+  }
+  .shot-frame.glow {
+    box-shadow:
+      0 30px 90px rgba(99, 102, 241, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+  .hero .shot-frame {
+    max-width: 1060px;
+    margin: 0 auto;
+  }
+
+  /* ---------- feature sections ---------- */
+  .feature {
+    padding: 6.5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .feature-head {
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto 3rem;
+  }
+  .feature-head .eyebrow { justify-content: center; }
+  .feature-head h2 {
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    text-wrap: balance;
+  }
+  .feature-head p {
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .feature .shot-frame {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* ---------- platforms ---------- */
+  .platforms {
+    padding: 6rem 0 7rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .platforms h2 {
+    font-size: clamp(1.8rem, 3.6vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.7rem;
+  }
+  .platforms p { color: var(--ink-dim); margin: 0 0 2.4rem; }
+
+  .platform-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .platform-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem 1rem;
+    background: var(--bg-panel);
+  }
+  .platform-card .icon { font-size: 1.6rem; margin-bottom: 0.7rem; }
+  .platform-card h3 { font-size: 0.98rem; margin: 0 0 0.3rem; font-weight: 600; }
+  .platform-card span { font-size: 0.78rem; color: var(--ink-dim); }
+  .platform-card.soon { opacity: 0.55; }
+
+  /* ---------- footer ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.4rem 0;
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 0.8rem;
+  }
+  footer a { color: var(--ink-dim); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+  footer .foot-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--ink);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (max-width: 760px) {
+    nav.links { display: none; }
+    .feature { padding: 4.5rem 0; }
+    .platform-cards { grid-template-columns: 1fr; }
+    .hero { padding-top: 5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-inner">
+    <a class="brand" href="#top">
+      <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+      WakeStride
+    </a>
+    <nav class="links">
+      <a href="#matrix">매트릭스</a>
+      <a href="#calendar">캘린더</a>
+      <a href="#note">노트</a>
+      <a href="#dashboard">대시보드</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero wrap">
+    <div class="eyebrow">WAKESTRIDE</div>
+    <h1>일의 순서를,<br /><span class="accent-text">다시 정의하다.</span></h1>
+    <p>중요한 일과 급한 일을 가려내고,<br />캘린더와 노트가 그 흐름을 그대로 이어갑니다.</p>
+    <div class="platform-pills">
+      <span class="pill"><b>Windows</b> 데스크톱</span>
+      <span class="pill"><b>Android</b> 태블릿 · 폰</span>
+      <span class="pill">iOS · 준비 중</span>
+    </div>
+    <div class="shot-frame glow">
+      <img src="images/matrix.png" alt="WakeStride 매트릭스 화면 — 중요·긴급 기준으로 나뉜 네 개의 할 일 영역" />
+    </div>
+  </section>
+
+  <section id="matrix" class="feature">
+    <div class="wrap">
+      <div class="feature-head">
+        <div class="eyebrow">우선순위</div>
+        <h2>무엇부터 해야 할지,<br />고민하지 않게.</h2>
+        <p>중요도와 긴급도, 두 가지 기준으로 할 일을 네 영역에 자동으로 나눕니다.<br />지금 진짜 해야 할 일이 선명해집니다.</p>
+      </div>
+      <div class="shot-frame">
+        <img src="images/matrix.png" alt="아이젠하워 매트릭스 화면" />
+      </div>
+    </div>
+  </section>
+
+  <section id="calendar" class="feature">
+    <div class="wrap">
+      <div class="feature-head">
+        <div class="eyebrow">일정</div>
+        <h2>한 달과 하루를,<br />한 화면에서.</h2>
+        <p>월간 그리드와 하루 일정이 나란히 놓입니다.<br />좌우로 넘기면 다음 달, 클릭 한 번이면 그날의 일정까지.</p>
+      </div>
+      <div class="shot-frame">
+        <img src="images/calendar.png" alt="월간 캘린더와 하루 일정 패널" />
+      </div>
+    </div>
+  </section>
+
+  <section id="note" class="feature">
+    <div class="wrap">
+      <div class="feature-head">
+        <div class="eyebrow">기록</div>
+        <h2>쓰는 것과<br />해내는 것을 잇다.</h2>
+        <p>마크다운으로 기록한 노트가 할 일·일정과 서로 연결됩니다.<br />맥락은 그대로, 흐름은 끊기지 않게.</p>
+      </div>
+      <div class="shot-frame">
+        <img src="images/note.png" alt="마크다운 노트 렌더링 화면" />
+      </div>
+    </div>
+  </section>
+
+  <section id="dashboard" class="feature">
+    <div class="wrap">
+      <div class="feature-head">
+        <div class="eyebrow">통계</div>
+        <h2>얼마나 해냈는지,<br />숫자로 확인.</h2>
+        <p>그룹별 진행률과 기한 준수율, 최근 사용량까지.<br />오늘의 성과를 한눈에 확인합니다.</p>
+      </div>
+      <div class="shot-frame">
+        <img src="images/dashboard.png" alt="대시보드 통계 화면" />
+      </div>
+    </div>
+  </section>
+
+  <section class="platforms">
+    <div class="wrap">
+      <h2>어디서나 하나의 앱</h2>
+      <p>같은 데이터, 같은 흐름 — 데스크톱에서 시작하고 이동 중엔 휴대폰으로.</p>
+      <div class="platform-cards">
+        <div class="platform-card">
+          <div class="icon">🖥️</div>
+          <h3>Windows</h3>
+          <span>데스크톱 · 위젯</span>
+        </div>
+        <div class="platform-card">
+          <div class="icon">📱</div>
+          <h3>Android</h3>
+          <span>태블릿 · 폰</span>
+        </div>
+        <div class="platform-card soon">
+          <div class="icon">🍎</div>
+          <h3>iOS</h3>
+          <span>준비 중</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">
+      <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+      WakeStride
+    </div>
+    <div>Tauri · React · Rust 로 만든 개인 생산성 앱</div>
+  </div>
+</footer>
+
+</body>
+</html>
