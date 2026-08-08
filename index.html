@@ -187,25 +187,70 @@
     margin: 0 auto;
   }
 
-  /* 폰 스크린샷은 세로로 길어서 다른 섹션과 같은 가로폭으로 두면 지나치게
-     거대해짐 — 두 장을 나란히, 실제 폰 비율에 가까운 폭으로 축소해서 배치. */
-  .phone-row {
+  /* 모바일 섹션 — 탭을 눌러 매트릭스/캘린더 스크린샷과 설명 문구가 같이
+     바뀌는 인터랙티브 전환(2026-08-09, "단순 나열 말고 동적으로"). 이미지는
+     겹쳐 쌓아두고 opacity/transform만 토글해서 레이아웃 흔들림 없이 전환. */
+  .switcher {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .switcher-tabs {
     display: flex;
     justify-content: center;
-    gap: 1.4rem;
-    flex-wrap: wrap;
+    gap: 0.4rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.3rem;
+    margin-bottom: 1.4rem;
   }
-  .phone-row .shot-frame {
-    max-width: 300px;
-    flex: 0 1 300px;
-  }
-  .phone-row figcaption {
-    text-align: center;
-    font-size: 0.8rem;
+  .switcher-tab {
+    flex: 1;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
     color: var(--ink-dim);
-    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
   }
-  .phone-row figure { margin: 0; }
+  .switcher-tab.is-active {
+    background: var(--accent);
+    color: #fff;
+  }
+  .switcher-caption {
+    text-align: center;
+    color: var(--ink-dim);
+    font-size: 0.92rem;
+    min-height: 2.7em;
+    margin: 0 0 1.6rem;
+  }
+  .switcher-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1082 / 2402;
+  }
+  .switcher-img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+  }
+  .switcher-img.is-active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+  .switcher-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   /* 위젯은 원래 크기 자체가 작은 화면 조각이라, 다른 섹션처럼 풀와이드로
      늘리면 저해상도로 뭉개져 보임 — 자연스러운 위젯 크기로 작게 표시. */
@@ -380,23 +425,25 @@
   <section id="mobile" class="feature">
     <div class="wrap">
       <div class="feature-head">
-        <div class="eyebrow">모바일 · 다크 모드</div>
+        <div class="eyebrow">모바일 · 라이트 모드</div>
         <h2>한 손에 맞춘<br />네비게이션.</h2>
-        <p>화면을 다 차지하던 탭바 대신 좌하단 버튼 하나로.<br />각 화면은 매트릭스 사분면과 같은 색으로 구분됩니다.</p>
       </div>
-      <div class="phone-row">
-        <figure>
-          <div class="shot-frame">
-            <img src="images/phone-dark-matrix.png" alt="폰 매트릭스 화면" />
+
+      <div class="switcher">
+        <div class="switcher-tabs" role="tablist">
+          <button class="switcher-tab is-active" data-target="matrix" role="tab" aria-selected="true">매트릭스</button>
+          <button class="switcher-tab" data-target="calendar" role="tab" aria-selected="false">캘린더</button>
+        </div>
+        <p class="switcher-caption" data-caption="matrix">화면을 다 차지하던 탭바 대신 좌하단 버튼 하나로. 각 화면은 매트릭스 사분면과 같은 색으로 구분됩니다.</p>
+        <p class="switcher-caption" data-caption="calendar" hidden>월간 달력과 하루 일정이 한 화면에. 우측 하단 버튼으로 월·일 보기를 빠르게 전환합니다.</p>
+        <div class="switcher-stage">
+          <div class="switcher-img is-active shot-frame" data-target="matrix">
+            <img src="images/phone-light-matrix-menu.png" alt="폰 매트릭스 화면과 내비게이션 메뉴" />
           </div>
-          <figcaption>매트릭스</figcaption>
-        </figure>
-        <figure>
-          <div class="shot-frame">
-            <img src="images/phone-dark-menu.png" alt="폰 햄버거 메뉴 화면" />
+          <div class="switcher-img shot-frame" data-target="calendar">
+            <img src="images/phone-light-calendar.png" alt="폰 캘린더 화면" />
           </div>
-          <figcaption>내비게이션 메뉴</figcaption>
-        </figure>
+        </div>
       </div>
     </div>
   </section>
@@ -448,6 +495,28 @@
     <div>Tauri · React · Rust 로 만든 개인 생산성 앱</div>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var tabs = document.querySelectorAll('.switcher-tab');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var target = tab.dataset.target;
+        tabs.forEach(function (t) {
+          var active = t === tab;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-selected', String(active));
+        });
+        document.querySelectorAll('.switcher-img').forEach(function (img) {
+          img.classList.toggle('is-active', img.dataset.target === target);
+        });
+        document.querySelectorAll('.switcher-caption').forEach(function (cap) {
+          cap.hidden = cap.dataset.caption !== target;
+        });
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
