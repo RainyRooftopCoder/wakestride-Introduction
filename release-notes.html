@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WakeStride — 릴리즈 노트</title>
+<style>
+  :root {
+    --bg: #000000;
+    --bg-panel: #0d0d10;
+    --ink: #f5f5f7;
+    --ink-dim: #a1a1a6;
+    --border: #1d1d20;
+    --accent: #6366f1;
+    --accent-soft: rgba(99, 102, 241, 0.16);
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Malgun Gothic', Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 1.75rem; }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.4rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo-mark {
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5px;
+    background: #000;
+    padding: 1.5px;
+    flex-shrink: 0;
+  }
+  .logo-mark span:nth-child(1) { background: #e76e82; }
+  .logo-mark span:nth-child(2) { background: #70b8eb; }
+  .logo-mark span:nth-child(3) { background: #edbe6e; }
+  .logo-mark span:nth-child(4) { background: #9ca2ab; }
+  .back-link {
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--ink); }
+
+  main { padding: 3.5rem 0 5rem; }
+  .page-head { margin-bottom: 3rem; }
+  .eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.7rem;
+  }
+  .page-head p { color: var(--ink-dim); font-size: 1rem; margin: 0; }
+
+  .draft-flag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #facc15;
+    background: rgba(250, 204, 21, 0.12);
+    border: 1px solid rgba(250, 204, 21, 0.3);
+    border-radius: 999px;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .release {
+    border-top: 1px solid var(--border);
+    padding: 2.4rem 0;
+  }
+  .release:first-of-type { border-top: none; padding-top: 0; }
+  .release-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.1rem;
+  }
+  .release-version {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .release-date {
+    font-size: 0.82rem;
+    color: var(--ink-dim);
+  }
+  .release-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+  }
+  .release ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .release li { color: var(--ink); }
+  .release li b { color: var(--ink); }
+  .release li span.dim { color: var(--ink-dim); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0 3rem;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+  }
+  footer a { color: var(--ink-dim); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+      WakeStride
+    </a>
+    <a class="back-link" href="index.html#top">← 소개 페이지로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow">RELEASE NOTES</div>
+      <h1>무엇이 새로워졌는지,<br />한눈에.</h1>
+      <p>WakeStride Windows 버전의 업데이트 기록입니다.</p>
+      <div class="draft-flag">⚠ 가안 — 검토 전 초안입니다</div>
+    </div>
+
+    <div class="release">
+      <div class="release-head">
+        <span class="release-version">v0.1.0</span>
+        <span class="release-tag">Windows 첫 공개</span>
+        <span class="release-date">2026-08-14</span>
+      </div>
+      <ul>
+        <li><b>기기 간 데이터 동기화</b> — <span class="dim">노트 루트로 같은 구글 드라이브 폴더를 여러 기기에서 지정하면, 할 일과 일정이 자동으로 이어집니다. 폴더 색상도 기기와 상관없이 동일하게 보입니다.</span></li>
+        <li><b>첫 실행 화면 추가</b> — <span class="dim">설치 후 처음 실행하면 언어 선택과 노트 저장 폴더 선택을 바로 안내합니다.</span></li>
+        <li><b>화면별 기능 안내</b> — <span class="dim">매트릭스·캘린더·노트·대시보드 화면에 처음 들어갈 때 짧은 설명이 한 번 표시됩니다. 설정 &gt; 정보에서 언제든 다시 볼 수 있습니다.</span></li>
+        <li><b>데스크톱 위젯 위치 개선</b> — <span class="dim">화면 크기와 무관하게 항상 화면 안쪽에 표시되도록 고쳤습니다.</span></li>
+        <li><b>노트 파일·폴더 생성 방식 개선</b> — <span class="dim">별도 팝업 없이 노트 트리 안에서 바로 이름을 입력해 만들 수 있습니다.</span></li>
+        <li><b>설정 화면 정리</b> — <span class="dim">언어·글꼴·테마 등 선택 항목을 드롭다운으로 통일하고, 레이아웃을 가지런히 정리했습니다.</span></li>
+        <li><b>단축키 추가</b> — <span class="dim">3분할·커스텀 레이아웃에서 조합 보기로 전환하는 단축키(Ctrl+5)를 추가했습니다.</span></li>
+        <li><b>설치 프로그램 다국어 지원</b> — <span class="dim">설치 시 한국어·English·日本語 중에서 언어를 선택할 수 있습니다.</span></li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html">← WakeStride 소개 페이지로 돌아가기</a>
+  </div>
+</footer>
+
+</body>
+</html>
