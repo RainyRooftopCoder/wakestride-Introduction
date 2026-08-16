@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WakeStride — 사용 설명서</title>
+<style>
+  :root {
+    --bg: #000000;
+    --bg-panel: #0d0d10;
+    --ink: #f5f5f7;
+    --ink-dim: #a1a1a6;
+    --border: #1d1d20;
+    --accent: #6366f1;
+    --accent-soft: rgba(99, 102, 241, 0.16);
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Malgun Gothic', Roboto, sans-serif;
+    --mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 800px; margin: 0 auto; padding: 0 1.75rem; }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.4rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo-mark {
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5px;
+    background: #000;
+    padding: 1.5px;
+    flex-shrink: 0;
+  }
+  .logo-mark span:nth-child(1) { background: #e76e82; }
+  .logo-mark span:nth-child(2) { background: #70b8eb; }
+  .logo-mark span:nth-child(3) { background: #edbe6e; }
+  .logo-mark span:nth-child(4) { background: #9ca2ab; }
+  .back-link { font-size: 0.78rem; color: var(--ink-dim); text-decoration: none; }
+  .back-link:hover { color: var(--ink); }
+
+  main { padding: 3.5rem 0 5rem; }
+  .page-head { margin-bottom: 2.2rem; }
+  .eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.7rem;
+  }
+  .page-head p { color: var(--ink-dim); font-size: 0.92rem; margin: 0.2rem 0 0; max-width: 46rem; }
+
+  /* 목차 */
+  nav.toc {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin: 2rem 0 3rem;
+  }
+  nav.toc div.toc-title { font-size: 0.78rem; font-weight: 700; color: var(--ink-dim); letter-spacing: 0.04em; margin-bottom: 0.7rem; }
+  nav.toc ol { margin: 0; padding-left: 1.1rem; columns: 2; column-gap: 1.5rem; }
+  nav.toc li { font-size: 0.85rem; margin-bottom: 0.45rem; break-inside: avoid; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+
+  section.doc { margin: 3.2rem 0; scroll-margin-top: 4.5rem; }
+  section.doc h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  section.doc h2 .num { color: var(--accent); font-size: 0.9rem; font-weight: 700; }
+  section.doc > p.lead { color: var(--ink-dim); font-size: 0.9rem; margin: 0 0 1.2rem; }
+  section.doc h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 1.4rem 0 0.6rem;
+    color: var(--ink);
+  }
+  section.doc p { color: var(--ink-dim); font-size: 0.88rem; margin: 0 0 0.8rem; }
+  section.doc ul, section.doc ol.steps { margin: 0 0 0.8rem; padding-left: 1.2rem; color: var(--ink-dim); font-size: 0.88rem; }
+  section.doc li { margin-bottom: 0.45rem; }
+  section.doc strong { color: var(--ink); font-weight: 600; }
+  kbd {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    padding: 0.08rem 0.4rem;
+    color: var(--ink);
+  }
+
+  figure.shot {
+    margin: 1rem 0 1.4rem;
+  }
+  figure.shot img {
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.6);
+  }
+  figure.shot.shot-narrow {
+    max-width: 26rem;
+  }
+  figure.shot.shot-tiny {
+    max-width: 11rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  figure.shot figcaption {
+    margin-top: 0.55rem;
+    font-size: 0.76rem;
+    color: var(--ink-dim);
+    text-align: center;
+  }
+  .shot-row {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .shot-row figure.shot { flex: 1; min-width: 14rem; margin-top: 0; }
+
+  table.keys {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+  }
+  table.keys th {
+    text-align: left;
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0 0 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  table.keys td { padding: 0.55rem 0; border-bottom: 1px solid var(--border); color: var(--ink-dim); }
+  table.keys td:first-child { width: 9rem; }
+  table.keys tr:last-child td { border-bottom: none; }
+
+  .callout {
+    background: var(--accent-soft);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    font-size: 0.85rem;
+    color: var(--ink);
+    margin: 0.5rem 0 1rem;
+  }
+  .callout strong { color: var(--accent); }
+
+  .note-flag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ink-dim);
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.3rem 0.8rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0 3rem;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+  }
+  footer a { color: var(--ink-dim); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  @media (max-width: 560px) {
+    nav.toc ol { columns: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+      WakeStride
+    </a>
+    <a class="back-link" href="index.html#top">← 소개 페이지로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow">USER MANUAL</div>
+      <h1>WakeStride 사용 설명서</h1>
+      <p>Windows 버전 기준입니다. 화면 구성과 각 기능을 순서대로 안내합니다.</p>
+      <div class="note-flag">현재 앱 화면을 기준으로 작성했습니다 · 기능이 바뀌면 이 문서도 함께 갱신됩니다</div>
+    </div>
+
+    <nav class="toc" aria-label="목차">
+      <div class="toc-title">목차</div>
+      <ol>
+        <li><a href="#start">시작하기</a></li>
+        <li><a href="#overview">화면 한눈에 보기</a></li>
+        <li><a href="#matrix">매트릭스</a></li>
+        <li><a href="#calendar">캘린더</a></li>
+        <li><a href="#note">노트</a></li>
+        <li><a href="#dashboard">대시보드</a></li>
+        <li><a href="#quickadd">검색 / 빠른 입력</a></li>
+        <li><a href="#widget">데스크톱 위젯</a></li>
+        <li><a href="#layout">화면 배치</a></li>
+        <li><a href="#settings">설정</a></li>
+        <li><a href="#shortcuts">단축키</a></li>
+        <li><a href="#sync">여러 기기에서 쓰기</a></li>
+        <li><a href="#update">업데이트</a></li>
+      </ol>
+    </nav>
+
+    <section class="doc" id="start">
+      <h2><span class="num">01</span> 시작하기</h2>
+      <p class="lead">설치부터 첫 화면까지.</p>
+      <h3>설치</h3>
+      <p>내려받은 설치 파일을 실행하면 언어(한국어 / English / 日本語)를 먼저 고르는 화면이 나옵니다. 이후 안내에 따라 설치를 마치면 자동으로 앱이 실행됩니다.</p>
+      <h3>첫 실행</h3>
+      <ol class="steps">
+        <li>앱 언어를 선택합니다.</li>
+        <li>일정·할일·노트를 저장할 <strong>폴더</strong>를 지정합니다("나중에 설정할게요"로 건너뛰어도 됩니다 — 설정 &gt; 파일&amp;링크에서 나중에 지정 가능).</li>
+      </ol>
+      <div class="callout">이 폴더를 <strong>구글 드라이브</strong>처럼 여러 기기에서 동기화되는 폴더로 지정하면, 다른 PC에서 같은 폴더를 지정했을 때 일정·할일·노트·폴더 색상까지 자동으로 이어집니다. 자세한 내용은 <a href="#sync" style="color: var(--accent);">12. 여러 기기에서 쓰기</a>를 참고하세요.</div>
+    </section>
+
+    <section class="doc" id="overview">
+      <h2><span class="num">02</span> 화면 한눈에 보기</h2>
+      <p>왼쪽(또는 하단) 사이드바의 4개 아이콘으로 화면을 전환합니다.</p>
+      <table class="keys">
+        <tr><th>화면</th><th>내용</th><th>단축키</th></tr>
+        <tr><td>매트릭스</td><td>중요도·긴급도 4분면으로 할일 정리</td><td><kbd>Ctrl+1</kbd></td></tr>
+        <tr><td>캘린더</td><td>월간/주간 일정 보기</td><td><kbd>Ctrl+2</kbd></td></tr>
+        <tr><td>노트</td><td>폴더·파일 트리와 메모 편집기</td><td><kbd>Ctrl+3</kbd></td></tr>
+        <tr><td>대시보드</td><td>통계와 프로젝트 보드(WBS)</td><td><kbd>Ctrl+4</kbd></td></tr>
+      </table>
+      <p>설정 &gt; 외관에서 화면을 한 번에 하나씩 볼지, 여러 화면을 나눠서 볼지 고를 수 있습니다 — <a href="#layout" style="color: var(--accent);">9. 화면 배치</a> 참고.</p>
+    </section>
+
+    <section class="doc" id="matrix">
+      <h2><span class="num">03</span> 매트릭스</h2>
+      <p class="lead">아이젠하워 매트릭스 — 중요도와 긴급도로 할일을 4칸에 나눠 봅니다.</p>
+      <figure class="shot">
+        <img src="images/manual/matrix.png" alt="매트릭스 화면 — 4개 칸에 할일이 색깔 태그와 함께 정리된 모습" loading="lazy" />
+        <figcaption>중요도·긴급도 4분면. 제목 앞 색깔 태그가 소속 그룹을 나타냅니다.</figcaption>
+      </figure>
+      <ul>
+        <li><strong>중요&amp;긴급</strong> / <strong>중요, 긴급 아님</strong> / <strong>긴급, 중요 아님</strong> / <strong>중요·긴급 아님</strong> 4개 칸이 있습니다.</li>
+        <li>각 칸 오른쪽 위 <strong>+</strong> 버튼으로 그 칸에 맞는 할일을 바로 추가합니다.</li>
+        <li>체크박스를 누르면 완료 처리됩니다. 완료해도 <strong>3초간</strong>은 화면에 남아있다가 사라집니다(취소 여유를 두기 위함) — 사라진 뒤에도 데이터가 없어진 게 아니라, <a href="#dashboard" style="color: var(--accent);">대시보드 &gt; 그룹별 진행도</a>에서 "완료 항목 보기"로 계속 확인할 수 있습니다.</li>
+        <li>항목의 제목 앞에 색깔 태그가 붙어 있으면 그 항목이 속한 그룹(보통 노트 폴더)을 뜻합니다.</li>
+        <li>항목에 연결된 노트가 있으면 작은 노트 아이콘이 붙고, 클릭하면 바로 그 노트로 이동합니다.</li>
+        <li>체크박스가 아닌 항목 자체를 클릭하면 수정 화면이 열립니다.</li>
+      </ul>
+    </section>
+
+    <section class="doc" id="calendar">
+      <h2><span class="num">04</span> 캘린더</h2>
+      <p class="lead">월간 / 주간 두 가지 보기를 제공합니다.</p>
+      <h3>월간 보기</h3>
+      <ul>
+        <li>날짜를 클릭하면 옆(또는 아래)에 그날의 일정 목록이 나타나고, 목록 위쪽 <strong>+</strong> 버튼으로 새 일정을 추가합니다.</li>
+        <li>일정 막대는 소속 그룹의 색으로 표시되고, 여러 날에 걸친 일정은 하나의 막대로 이어집니다.</li>
+        <li>공휴일은 날짜 아래 이름표로 자동 표시됩니다.</li>
+        <li>창이 좁아지면(3분할·커스텀 레이아웃 등) 막대 대신 작은 점으로 자동 전환됩니다.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/manual/calendar-month.png" alt="캘린더 월간 보기 — 날짜별 일정 막대와 오른쪽 하루 일정 패널" loading="lazy" />
+        <figcaption>월간 보기 — 선택한 날짜의 일정이 오른쪽 패널에 나타납니다.</figcaption>
+      </figure>
+      <h3>주간 보기</h3>
+      <ul>
+        <li>시간대별 그리드로 표시되고, 빈 시간을 클릭하면 그 날짜·시간으로 새 일정이 열립니다.</li>
+        <li>지금 시각이 빨간 선으로 표시되고, 화면을 열면 현재 시간대로 자동 스크롤됩니다.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/manual/calendar-week.png" alt="캘린더 주간 보기 — 시간대별 그리드에 일정이 배치된 모습" loading="lazy" />
+        <figcaption>주간 보기 — 시간 단위로 일정을 확인합니다.</figcaption>
+      </figure>
+      <div class="callout"><strong>참고:</strong> 일정을 드래그로 옮기거나 크기를 조절하는 기능은 없습니다 — 일정을 클릭해서 여는 수정 화면에서 날짜·시간을 바꿉니다.</div>
+    </section>
+
+    <section class="doc" id="note">
+      <h2><span class="num">05</span> 노트</h2>
+      <p class="lead">왼쪽 파일 트리 + 오른쪽 편집기 구조입니다.</p>
+      <h3>파일·폴더 만들기</h3>
+      <p>트리 위쪽 "파일"/"폴더" 버튼이나 우클릭 메뉴의 "새 파일"/"새 폴더"를 누르면 트리 안에 바로 이름을 입력하는 칸이 생깁니다. <kbd>Enter</kbd>로 확정, <kbd>Esc</kbd>로 취소합니다. 같은 방식으로 이름 변경도 트리 안에서 바로 합니다.</p>
+      <h3>우클릭(길게 누르기) 메뉴</h3>
+      <ul>
+        <li>새 파일 / 새 폴더</li>
+        <li>탐색기에서 열기 <em>(Windows 데스크톱만)</em></li>
+        <li>이름 변경</li>
+        <li>그룹 색상 변경 / 색상 지우기 <em>(폴더만)</em></li>
+        <li><strong>일정 등록</strong> / <strong>할일 등록</strong> — 그 폴더(또는 파일의 상위 폴더)를 그룹으로 미리 선택한 채 일정·할일 등록 화면이 열립니다. 파일에서 실행하면 그 파일이 연결된 노트로도 자동 지정됩니다.</li>
+        <li>삭제</li>
+      </ul>
+      <figure class="shot shot-narrow">
+        <img src="images/manual/note-context-menu.png" alt="노트 트리 우클릭 메뉴 — 새 파일/새 폴더/일정 등록/할일 등록 등" loading="lazy" />
+        <figcaption>폴더/파일 우클릭 메뉴</figcaption>
+      </figure>
+      <div class="callout">폴더는 만들어지는 순간 자동으로 매트릭스·캘린더의 <strong>그룹</strong>이 됩니다 — 노트 폴더 구조 그대로 일정/할일을 분류할 수 있습니다.</div>
+      <h3>편집기</h3>
+      <ul>
+        <li>여러 파일을 탭으로 동시에 열어둘 수 있습니다. <kbd>Ctrl+Tab</kbd>으로 다음 탭, <kbd>Ctrl+W</kbd>로 탭 닫기, <kbd>Ctrl+S</kbd>로 저장.</li>
+        <li>마크다운(.md) 파일은 <strong>소스</strong>(직접 문법 입력) / <strong>라이브</strong>(꾸며진 화면에서 바로 편집) 두 모드를 <kbd>Ctrl+Shift+V</kbd>로 전환할 수 있습니다.</li>
+        <li>입력을 멈추면 2초 뒤 자동으로 백업되고, 저장하지 않고 앱을 껐다 켜도 마지막 작업 내용이 복구됩니다.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/manual/note.png" alt="노트 화면 — 왼쪽 파일 트리와 오른쪽 마크다운 소스 편집기" loading="lazy" />
+        <figcaption>파일 트리 + 편집기. 위쪽 소스/라이브 버튼으로 보기 방식을 바꿉니다.</figcaption>
+      </figure>
+    </section>
+
+    <section class="doc" id="dashboard">
+      <h2><span class="num">06</span> 대시보드</h2>
+      <p class="lead">통계 탭과 프로젝트 보드 탭으로 나뉩니다.</p>
+      <h3>통계</h3>
+      <ul>
+        <li>전체 진행률, 이번 주/이번 달 기한 준수율, 설치 후 사용 일수를 카드로 보여줍니다.</li>
+        <li>매트릭스 분포(4분면별 할일 수)와 최근 5주 기한 준수율 그래프.</li>
+        <li><strong>그룹별 진행도</strong> — 그룹마다 진행률 막대가 표시되고, "완료 항목 N개 보기"를 누르면 매트릭스에서 사라진 완료 항목들을 완료일과 함께 다시 볼 수 있습니다.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/manual/dashboard-stats.png" alt="대시보드 통계 화면 — 진행률, 기한 준수율, 그룹별 진행도" loading="lazy" />
+        <figcaption>통계 탭</figcaption>
+      </figure>
+      <h3>프로젝트 보드</h3>
+      <p>그룹(노트 폴더)마다 카드가 하나씩 생기고, 그 달의 일정·할일이 날짜 막대로 표시됩니다. 하위 폴더는 들여쓰기로 이어져 표시됩니다. 일정에 딸린 할일이 있으면 막대를 눌러 목록을 펼쳐볼 수 있고, 그룹에 연결된 노트 파일은 배지를 눌러 바로 열 수 있습니다.</p>
+      <figure class="shot">
+        <img src="images/manual/dashboard-board.png" alt="대시보드 프로젝트 보드 — 그룹별 일정·할일이 날짜 막대로 표시된 모습" loading="lazy" />
+        <figcaption>프로젝트 보드 탭 — 그룹별 간트 형태 보기</figcaption>
+      </figure>
+    </section>
+
+    <section class="doc" id="quickadd">
+      <h2><span class="num">07</span> 검색 / 빠른 입력</h2>
+      <p class="lead">화면 우측 하단에 항상 떠 있는 동그란 버튼(FAB) 하나로 검색과 등록을 전부 처리합니다. 어떻게 누르느냐에 따라 결과가 달라지는, 이 앱에서 가장 손에 익히면 빠른 기능입니다.</p>
+      <figure class="shot shot-tiny">
+        <img src="images/manual/fab-idle.png" alt="빠른 입력 버튼의 평소 모습 — 화면 우측 하단의 보라색 원형 + 버튼" loading="lazy" />
+        <figcaption>평소 모습 — 화면 우측 하단 <kbd>Ctrl+K</kbd> / <kbd>Ctrl+N</kbd>으로도 동일하게 열립니다.</figcaption>
+      </figure>
+
+      <h3>① 짧게 탭 — 검색 / 새로 만들기</h3>
+      <p>버튼을 눌렀다 바로 떼면(또는 <kbd>Ctrl+K</kbd>) 검색창이 열립니다.</p>
+      <ul>
+        <li>글자를 입력하면 할일·일정·노트·설정 검색 결과가 동시에 나타나고, 결과를 클릭하면 해당 화면으로 이동합니다(설정 결과는 해당 탭이 바로 열립니다).</li>
+        <li>같은 창 아래쪽 "새로 만들기"에서 할일/일정/노트 중 하나를 골라 바로 만들 수 있습니다. 할일은 중요/긴급 여부를 한 번 더 물어보고, 일정은 오늘 날짜로 바로 만들어지며, 노트는 입력한 글자를 파일 이름으로 노트 루트에 바로 생성됩니다.</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/manual/quickadd.png" alt="검색/빠른 입력 창 — 검색 결과와 새로 만들기 버튼" loading="lazy" />
+        <figcaption>"배포"로 검색한 예 — 할일·일정·노트 결과가 한 번에 나타납니다.</figcaption>
+      </figure>
+
+      <h3>② 누른 채 드래그 — 방향으로 할일 즉시 등록</h3>
+      <p>버튼을 누르고 있으면 손을 떼기 전이라도 바로 매트릭스와 똑같은 색의 4방향 링이 나타납니다. 손가락(마우스)을 뗀 방향에 따라 그 사분면에 맞는 할일이 <strong>제목만 입력하면 바로 등록되는 화면</strong>으로 열립니다 — 매트릭스 화면에서 항목이 배치되는 위치와 정확히 같은 방향입니다.</p>
+      <figure class="shot shot-tiny">
+        <img src="images/manual/fab-ring.png" alt="빠른 입력 버튼을 누르고 있을 때 나타나는 4방향 색깔 링" loading="lazy" />
+        <figcaption>누르고 있으면 나타나는 4방향 링 — 매트릭스와 같은 배치/색</figcaption>
+      </figure>
+      <table class="keys">
+        <tr><th>드래그 방향</th><th>등록되는 할일</th></tr>
+        <tr><td>왼쪽 위 (↖)</td><td>중요 &amp; 긴급</td></tr>
+        <tr><td>오른쪽 위 (↗)</td><td>중요, 긴급 아님</td></tr>
+        <tr><td>왼쪽 아래 (↙)</td><td>긴급, 중요 아님</td></tr>
+        <tr><td>오른쪽 아래 (↘)</td><td>중요·긴급 아님</td></tr>
+      </table>
+      <p style="font-size: 0.8rem;">누른 직후에는 아직 방향이 정해지지 않아 4칸이 같은 두께로 보이고, 살짝이라도(약 14px) 움직이면 그 방향의 칸이 굵게 강조되며 실시간으로 바뀝니다.</p>
+
+      <h3>③ 움직이지 않고 꾹 누르기 — 새 일정</h3>
+      <p>버튼을 누른 채 <strong>0.5초</strong> 이상 방향을 바꾸지 않고 그대로 있으면(드래그 없이) 새 일정 등록 화면이 곧바로 열립니다.</p>
+    </section>
+
+    <section class="doc" id="widget">
+      <h2><span class="num">08</span> 데스크톱 위젯</h2>
+      <p class="lead">바탕화면 아이콘 사이에 실제로 붙는 위젯입니다 — 항상 맨 뒤에 깔리고, 별도 창처럼 겹쳐 뜨지 않습니다.</p>
+      <ul>
+        <li>설정 &gt; 일반 &gt; 데스크톱 위젯에서 <strong>위젯 열기/닫기</strong>를 켭니다.</li>
+        <li><strong>표시 내용</strong>을 달력만 / 매트릭스만 / 둘 다 중에 고를 수 있습니다.</li>
+        <li>위치·크기도 같은 설정 화면의 X/Y/너비/높이 값으로 조절합니다("현재 값 불러오기"로 지금 위치를 채워넣고 조금씩 수정하면 편합니다).</li>
+      </ul>
+      <figure class="shot">
+        <img src="images/widget-dark.png" alt="바탕화면에 붙어있는 WakeStride 위젯 — 캘린더와 매트릭스" loading="lazy" />
+        <figcaption>바탕화면 아이콘 사이에 자연스럽게 자리잡은 위젯</figcaption>
+      </figure>
+      <div class="callout">위젯 창 자체에는 테두리나 닫기 버튼이 없습니다 — 모든 제어는 설정 화면에서 합니다. (데스크톱 전용 기능입니다.)</div>
+    </section>
+
+    <section class="doc" id="layout">
+      <h2><span class="num">09</span> 화면 배치</h2>
+      <p class="lead">설정 &gt; 외관 &gt; 레이아웃에서 고릅니다.</p>
+      <ul>
+        <li><strong>단일 화면</strong> — 한 번에 한 화면만 보여줍니다(기본값).</li>
+        <li><strong>3분할</strong> — 창이 가로로 넓을 때 노트를 왼쪽에, 캘린더·매트릭스를 오른쪽 위/아래로 동시에 보여줍니다.</li>
+        <li><strong>커스텀</strong> — 노트/캘린더/매트릭스/하루/이번주 중 원하는 화면들을 직접 배치하고 크기를 정할 수 있습니다. 실제 화면에서도 경계선을 드래그해 크기를 다시 조절할 수 있습니다. (데스크톱 전용)</li>
+      </ul>
+      <p>3분할·커스텀 상태에서는 사이드바에 <strong>조합 보기</strong> 아이콘이 추가로 나타나고 <kbd>Ctrl+5</kbd>로도 전환됩니다 — 나눠진 화면과, 마지막에 선택했던 화면 하나를 꽉 채운 모습을 오갑니다.</p>
+    </section>
+
+    <section class="doc" id="settings">
+      <h2><span class="num">10</span> 설정</h2>
+      <p class="lead">7개 탭으로 나뉩니다.</p>
+      <figure class="shot">
+        <img src="images/manual/settings-general.png" alt="설정 화면 — 왼쪽에 7개 탭, 오른쪽에 일반 탭 내용" loading="lazy" />
+        <figcaption>설정 &gt; 일반 탭</figcaption>
+      </figure>
+      <table class="keys">
+        <tr><th>탭</th><th>내용</th></tr>
+        <tr><td>일반</td><td>언어, 데스크톱 위젯 켜기/끄기·내용·위치</td></tr>
+        <tr><td>파일&amp;링크</td><td>작업공간(기기별 데이터 묶음), 노트 저장 폴더, 새 노트 기본 확장자, 폴더↔그룹 동기화</td></tr>
+        <tr><td>외관</td><td>테마(라이트/다크), 포인트 컬러, 모서리 모양, 화면 배치</td></tr>
+        <tr><td>편집기</td><td>글꼴, 배경, 색상 테마, 마크다운 표시 스타일 전반</td></tr>
+        <tr><td>단축키</td><td>전체 단축키 목록 확인(읽기 전용)</td></tr>
+        <tr><td>고급</td><td>할일/일정/그룹/전체 데이터 초기화(되돌릴 수 없음, 주의)</td></tr>
+        <tr><td>정보</td><td>버전, 업데이트 확인, 기능 안내 다시 보기, 피드백, 오픈소스 라이선스</td></tr>
+      </table>
+      <div class="shot-row">
+        <figure class="shot">
+          <img src="images/manual/settings-appearance.png" alt="설정 외관 탭 — 테마, 포인트 컬러, 모서리, 레이아웃" loading="lazy" />
+          <figcaption>외관 탭</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="images/manual/settings-about.png" alt="설정 정보 탭 — 버전, 업데이트 확인, 기능 안내" loading="lazy" />
+          <figcaption>정보 탭</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="doc" id="shortcuts">
+      <h2><span class="num">11</span> 단축키</h2>
+      <h3>전역</h3>
+      <table class="keys">
+        <tr><td><kbd>Ctrl+N</kbd></td><td>빠른 입력 열기</td></tr>
+        <tr><td><kbd>Ctrl+K</kbd></td><td>검색 열기</td></tr>
+        <tr><td><kbd>Ctrl+,</kbd></td><td>설정 열기</td></tr>
+        <tr><td><kbd>Ctrl+1</kbd></td><td>매트릭스로 전환</td></tr>
+        <tr><td><kbd>Ctrl+2</kbd></td><td>캘린더로 전환</td></tr>
+        <tr><td><kbd>Ctrl+3</kbd></td><td>노트로 전환</td></tr>
+        <tr><td><kbd>Ctrl+4</kbd></td><td>대시보드로 전환</td></tr>
+        <tr><td><kbd>Ctrl+5</kbd></td><td>조합 보기로 전환(3분할·커스텀에서만)</td></tr>
+      </table>
+      <h3>노트 화면</h3>
+      <table class="keys">
+        <tr><td><kbd>Ctrl+S</kbd></td><td>저장</td></tr>
+        <tr><td><kbd>Ctrl+W</kbd></td><td>현재 탭 닫기</td></tr>
+        <tr><td><kbd>Ctrl+Tab</kbd> / <kbd>Ctrl+Shift+Tab</kbd></td><td>다음/이전 탭</td></tr>
+        <tr><td><kbd>Ctrl+B</kbd></td><td>파일 트리 접기/펼치기</td></tr>
+        <tr><td><kbd>Ctrl+Shift+V</kbd></td><td>소스/라이브 전환(.md만)</td></tr>
+      </table>
+      <h3>캘린더 화면</h3>
+      <table class="keys">
+        <tr><td><kbd>T</kbd></td><td>오늘로 이동</td></tr>
+        <tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>이전/다음 기간</td></tr>
+        <tr><td><kbd>M</kbd></td><td>월간 보기</td></tr>
+        <tr><td><kbd>W</kbd></td><td>주간 보기</td></tr>
+      </table>
+      <p style="font-size: 0.8rem;">이 표는 앱 내 <strong>설정 &gt; 단축키</strong> 화면과 항상 동일하게 유지됩니다. 노트 편집기 안에서는 이 외에도 일반적인 코드 편집기 단축키(실행 취소/찾기/줄 이동 등)를 그대로 쓸 수 있습니다.</p>
+    </section>
+
+    <section class="doc" id="sync">
+      <h2><span class="num">12</span> 여러 기기에서 쓰기</h2>
+      <p class="lead">서버 없이도 여러 PC에서 같은 데이터를 이어서 씁니다.</p>
+      <ol class="steps">
+        <li>각 PC에 WakeStride를 설치합니다.</li>
+        <li>설정 &gt; 파일&amp;링크(또는 첫 실행 화면)에서, 모든 기기가 <strong>똑같이 동기화되는 폴더</strong>(예: 구글 드라이브 안의 한 폴더)를 노트 저장 폴더로 지정합니다.</li>
+        <li>먼저 데이터를 쌓아둔 기기에서 그 폴더를 지정하면 실제 일정·할일 데이터가 그 폴더 안으로 옮겨지고, 나중에 같은 폴더를 지정하는 다른 기기는 그 데이터를 그대로 이어받습니다(기존 데이터를 덮어쓰지 않습니다).</li>
+      </ol>
+      <p>노트 파일뿐 아니라 일정·할일 데이터, 폴더별 색상까지 기기와 상관없이 동일하게 보입니다. 실제 폴더 동기화(구글 드라이브 등)는 WakeStride가 아니라 사용자가 설치한 동기화 프로그램이 처리합니다 — WakeStride는 그 폴더를 읽고 쓸 뿐, 클라우드에 직접 접속하지 않습니다.</p>
+      <div class="callout">설정 &gt; 파일&amp;링크의 <strong>작업공간</strong> 기능을 쓰면, 완전히 분리된 데이터 묶음(예: "회사용"/"개인용")을 만들어 한 PC 안에서도 전환하며 쓸 수 있습니다. 이건 기기 간 동기화와는 별개의 기능입니다.</div>
+    </section>
+
+    <section class="doc" id="update">
+      <h2><span class="num">13</span> 업데이트</h2>
+      <p>설정 &gt; 정보에서 <strong>업데이트 확인</strong>을 누르면 새 버전이 있는지 확인합니다. 새 버전이 있으면 버전 번호가 표시되고, <strong>지금 설치</strong>를 누르면 내려받은 뒤 자동으로 앱이 다시 시작되며 적용됩니다. 자동으로(사용자 동작 없이) 확인하지는 않습니다 — 항상 이 버튼을 직접 눌러야 합니다.</p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html">← WakeStride 소개 페이지로 돌아가기</a>
+  </div>
+</footer>
+
+</body>
+</html>
