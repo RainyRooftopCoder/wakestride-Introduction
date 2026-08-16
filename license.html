@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WakeStride — 이용약관 / 라이선스</title>
+<style>
+  :root {
+    --bg: #000000;
+    --bg-panel: #0d0d10;
+    --ink: #f5f5f7;
+    --ink-dim: #a1a1a6;
+    --border: #1d1d20;
+    --accent: #6366f1;
+    --accent-soft: rgba(99, 102, 241, 0.16);
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Malgun Gothic', Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 1.75rem; }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.4rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo-mark {
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5px;
+    background: #000;
+    padding: 1.5px;
+    flex-shrink: 0;
+  }
+  .logo-mark span:nth-child(1) { background: #e76e82; }
+  .logo-mark span:nth-child(2) { background: #70b8eb; }
+  .logo-mark span:nth-child(3) { background: #edbe6e; }
+  .logo-mark span:nth-child(4) { background: #9ca2ab; }
+  .back-link { font-size: 0.78rem; color: var(--ink-dim); text-decoration: none; }
+  .back-link:hover { color: var(--ink); }
+
+  main { padding: 3.5rem 0 5rem; }
+  .page-head { margin-bottom: 2.5rem; }
+  .eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+  }
+  h1 {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.7rem;
+  }
+  .page-head p { color: var(--ink-dim); font-size: 0.9rem; margin: 0.2rem 0 0; }
+
+  .draft-flag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #facc15;
+    background: rgba(250, 204, 21, 0.12);
+    border: 1px solid rgba(250, 204, 21, 0.3);
+    border-radius: 999px;
+    padding: 0.3rem 0.8rem;
+  }
+
+  section.doc { margin-bottom: 2.2rem; }
+  section.doc h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem;
+    color: var(--ink);
+  }
+  section.doc p { color: var(--ink-dim); font-size: 0.88rem; margin: 0 0 0.7rem; }
+  section.doc ul { margin: 0 0 0.7rem; padding-left: 1.2rem; color: var(--ink-dim); font-size: 0.88rem; }
+  section.doc li { margin-bottom: 0.4rem; }
+  section.doc strong { color: var(--ink); font-weight: 600; }
+  .meta { font-size: 0.78rem; color: var(--ink-dim); border-top: 1px solid var(--border); padding-top: 1.2rem; margin-top: 2.5rem; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0 3rem;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+  }
+  footer a { color: var(--ink-dim); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+      WakeStride
+    </a>
+    <a class="back-link" href="index.html#top">← 소개 페이지로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow">TERMS &amp; LICENSE</div>
+      <h1>이용약관 &amp; 라이선스</h1>
+      <p>WakeStride를 설치·사용하기 전에 확인해주세요.</p>
+      <div class="draft-flag">⚠ 가안 — 법률 검토 전 초안입니다</div>
+    </div>
+
+    <section class="doc">
+      <h2>1. 소프트웨어 제공</h2>
+      <p>WakeStride(이하 "앱")는 rooftop(이하 "개발자")이 만들어 배포하는 개인용 생산성 소프트웨어입니다. Windows 버전은 현재 <strong>무료</strong>로 제공되며, 별도 계정 등록이나 결제 없이 설치해 사용할 수 있습니다.</p>
+    </section>
+
+    <section class="doc">
+      <h2>2. 사용 범위</h2>
+      <ul>
+        <li>개인적인 용도는 물론, 업무 등 상업적 환경에서도 자유롭게 설치·사용할 수 있습니다.</li>
+        <li>앱을 역분석(리버스 엔지니어링)하거나 소스코드를 임의로 추출해, 별도의 경쟁 제품으로 재배포·재판매하는 행위는 금지합니다.</li>
+        <li>앱 자체(실행 파일, 설치 파일, 로고 등)를 개발자 허락 없이 다른 이름으로 재배포하지 말아주세요. 앱을 그대로 소개·추천하는 링크 공유는 문제되지 않습니다.</li>
+      </ul>
+    </section>
+
+    <section class="doc">
+      <h2>3. 오픈소스 구성 요소</h2>
+      <p>앱은 React, Tauri, rusqlite 등 다양한 오픈소스 라이브러리로 만들어졌습니다. 각 라이브러리의 라이선스 목록은 앱 내 <strong>설정 &gt; 정보 &gt; 오픈소스 라이선스</strong>에서 확인할 수 있습니다.</p>
+    </section>
+
+    <section class="doc">
+      <h2>4. 데이터와 책임</h2>
+      <ul>
+        <li>사용자가 만드는 모든 데이터(일정·할일·노트)는 사용자의 PC와 사용자가 지정한 폴더에만 저장됩니다. 그 데이터의 보관·백업 책임은 사용자에게 있습니다.</li>
+        <li>앱은 "있는 그대로(AS-IS)" 제공되며, 특정 목적에의 적합성이나 오류 없는 동작을 보증하지 않습니다.</li>
+        <li>앱 사용 중 발생할 수 있는 데이터 손실, 업무 차질 등에 대해 개발자는 법이 허용하는 한도 내에서 책임을 지지 않습니다. 중요한 데이터는 정기적으로 별도 백업해주시길 권장합니다.</li>
+      </ul>
+    </section>
+
+    <section class="doc">
+      <h2>5. 향후 변경</h2>
+      <p>Windows 버전은 계속 무료로 유지할 계획이며, 모바일(Android/iOS) 버전 등 일부 플랫폼에는 향후 별도의 유료 정책이 도입될 수 있습니다. 정책이 바뀌면 이 페이지와 앱 내 공지를 통해 안내합니다.</p>
+    </section>
+
+    <section class="doc">
+      <h2>6. 문의</h2>
+      <p>이 약관에 대해 궁금한 점이 있으면 <strong>rainyrooftopcoder@gmail.com</strong>으로 연락해주세요.</p>
+    </section>
+
+    <div class="meta">최초 작성일: 2026-08-17 · 변경 시 이 문서와 게시일을 갱신합니다.</div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html">← WakeStride 소개 페이지로 돌아가기</a>
+  </div>
+</footer>
+
+</body>
+</html>

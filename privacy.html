@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WakeStride — 개인정보처리방침</title>
+<style>
+  :root {
+    --bg: #000000;
+    --bg-panel: #0d0d10;
+    --ink: #f5f5f7;
+    --ink-dim: #a1a1a6;
+    --border: #1d1d20;
+    --accent: #6366f1;
+    --accent-soft: rgba(99, 102, 241, 0.16);
+    --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Malgun Gothic', Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 1.75rem; }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.4rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .logo-mark {
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 4px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5px;
+    background: #000;
+    padding: 1.5px;
+    flex-shrink: 0;
+  }
+  .logo-mark span:nth-child(1) { background: #e76e82; }
+  .logo-mark span:nth-child(2) { background: #70b8eb; }
+  .logo-mark span:nth-child(3) { background: #edbe6e; }
+  .logo-mark span:nth-child(4) { background: #9ca2ab; }
+  .back-link { font-size: 0.78rem; color: var(--ink-dim); text-decoration: none; }
+  .back-link:hover { color: var(--ink); }
+
+  main { padding: 3.5rem 0 5rem; }
+  .page-head { margin-bottom: 2.5rem; }
+  .eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    margin-bottom: 0.9rem;
+  }
+  h1 {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.7rem;
+  }
+  .page-head p { color: var(--ink-dim); font-size: 0.9rem; margin: 0.2rem 0 0; }
+
+  .draft-flag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #facc15;
+    background: rgba(250, 204, 21, 0.12);
+    border: 1px solid rgba(250, 204, 21, 0.3);
+    border-radius: 999px;
+    padding: 0.3rem 0.8rem;
+  }
+
+  section.doc { margin-bottom: 2.2rem; }
+  section.doc h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem;
+    color: var(--ink);
+  }
+  section.doc p { color: var(--ink-dim); font-size: 0.88rem; margin: 0 0 0.7rem; }
+  section.doc ul { margin: 0 0 0.7rem; padding-left: 1.2rem; color: var(--ink-dim); font-size: 0.88rem; }
+  section.doc li { margin-bottom: 0.4rem; }
+  section.doc strong { color: var(--ink); font-weight: 600; }
+  .meta { font-size: 0.78rem; color: var(--ink-dim); border-top: 1px solid var(--border); padding-top: 1.2rem; margin-top: 2.5rem; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0 3rem;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+  }
+  footer a { color: var(--ink-dim); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+      WakeStride
+    </a>
+    <a class="back-link" href="index.html#top">← 소개 페이지로</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <div class="eyebrow">PRIVACY POLICY</div>
+      <h1>개인정보처리방침</h1>
+      <p>WakeStride는 서버 없이 로컬에서 동작하는 개인용 생산성 앱입니다. 이 문서는 앱이 사용자 정보를 어떻게(그리고 얼마나 적게) 다루는지 설명합니다.</p>
+      <div class="draft-flag">⚠ 가안 — 법률 검토 전 초안입니다</div>
+    </div>
+
+    <section class="doc">
+      <h2>1. 요약</h2>
+      <p>WakeStride는 <strong>회원가입, 로그인, 서버가 없는</strong> 앱입니다. 사용자가 만드는 일정·할일·노트 데이터는 전부 사용자의 컴퓨터(또는 사용자가 직접 지정한 폴더)에만 저장되며, 개발자를 포함해 어느 누구에게도 전송되지 않습니다.</p>
+    </section>
+
+    <section class="doc">
+      <h2>2. 수집하는 개인정보</h2>
+      <p><strong>없습니다.</strong> WakeStride는 이름, 이메일, 계정, 위치 등 어떤 개인 식별 정보도 수집하지 않습니다. 회원가입 절차 자체가 없습니다.</p>
+    </section>
+
+    <section class="doc">
+      <h2>3. 데이터가 저장되는 곳</h2>
+      <ul>
+        <li>일정·할일·설정 값은 사용자 PC의 로컬 SQLite 데이터베이스 파일에 저장됩니다.</li>
+        <li>노트(메모) 파일은 사용자가 설정에서 직접 지정한 폴더("노트 루트")에 일반 파일로 저장됩니다.</li>
+        <li>이 폴더를 구글 드라이브 등 외부 동기화 서비스가 관리하는 폴더로 지정할지는 전적으로 사용자의 선택입니다. WakeStride 자체는 어떤 클라우드 서비스에도 데이터를 직접 전송하지 않으며, 동기화는 사용자가 설치한 별도 프로그램(예: Google 드라이브 데스크톱 앱)이 파일 시스템 수준에서 처리합니다.</li>
+      </ul>
+    </section>
+
+    <section class="doc">
+      <h2>4. 네트워크 통신</h2>
+      <p>WakeStride는 원칙적으로 인터넷에 접속하지 않고 동작합니다. 유일한 예외는 다음과 같습니다:</p>
+      <ul>
+        <li><strong>업데이트 확인</strong> — 설정 &gt; 정보 화면에서 사용자가 직접 "업데이트 확인" 버튼을 눌렀을 때만 네트워크 요청이 발생합니다. 이때 최신 버전 정보가 담긴 공개 파일 하나를 읽어오고, 사용자가 설치를 선택하면 설치 파일을 내려받습니다. 이 과정에서 사용자를 식별할 수 있는 정보나 앱 사용 데이터는 전혀 전송되지 않습니다. 자동으로(사용자 동작 없이) 실행되지 않습니다.</li>
+      </ul>
+      <p>사용 시간, 완료율 등 대시보드에 표시되는 통계는 전부 위 1번의 로컬 데이터베이스에서만 계산되며, 어디로도 전송되지 않습니다.</p>
+    </section>
+
+    <section class="doc">
+      <h2>5. 제3자 제공</h2>
+      <p>수집하는 개인정보가 없으므로 제3자에게 제공하거나 판매하는 정보도 없습니다.</p>
+    </section>
+
+    <section class="doc">
+      <h2>6. 아동의 개인정보</h2>
+      <p>WakeStride는 특정 연령층을 대상으로 하지 않으며, 앞서 설명한 대로 어떤 개인정보도 수집하지 않습니다.</p>
+    </section>
+
+    <section class="doc">
+      <h2>7. 문의</h2>
+      <p>이 정책에 대해 궁금한 점이 있으면 <strong>rainyrooftopcoder@gmail.com</strong>으로 연락해주세요.</p>
+    </section>
+
+    <div class="meta">최초 작성일: 2026-08-17 · 변경 시 이 문서와 게시일을 갱신합니다.</div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html">← WakeStride 소개 페이지로 돌아가기</a>
+  </div>
+</footer>
+
+</body>
+</html>
