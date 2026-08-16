@@ -1,0 +1,11 @@
+{
+  "version": "0.2.1",
+  "notes": "위젯 중복(잔류 프로세스) 버그 수정, 자동 업데이트 기능 추가.",
+  "pub_date": "2026-08-16T15:23:46Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVSTkRvRmpORFlNM3lMT00xZFRyQTRwcEJqTmtRRXRZSUZ4T2pjQUVsZGQwQVY1dndQb2phMmk5ZDNCMnV2NHJqNU1DUFFQRis1OTJIdmxUaWhrK3BrVEZXNmhRSzBSRlFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg2ODkzNzYwCWZpbGU6d2FrZXN0cmlkZV8wLjIuMV94NjQtc2V0dXAuZXhlCjdweHluT1R0cFc1WmxyTlNGTVBmbCtrMGdRSGhUYUVTajdGWkxiQUFCalBVUGV4OHhvZmV6MjNEVFFFR0hpZVpZQ3N6UTVBc2RmVWwvUktFeE1FY0F3PT0K",
+      "url": "https://raw.githubusercontent.com/RainyRooftopCoder/wakestride-Introduction/main/downloads/wakestride_0.2.1_x64-setup.exe"
+    }
+  }
+}
