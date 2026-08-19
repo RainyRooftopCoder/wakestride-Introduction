@@ -36,21 +36,24 @@
     padding: 0 1.75rem;
   }
 
-  /* ---------- nav ---------- */
-  header {
+  /* ---------- app shell / sidebar nav ---------- */
+  .app {
+    display: flex;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+  .sidebar {
     position: sticky;
     top: 0;
-    z-index: 20;
-    background: rgba(0, 0, 0, 0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-  }
-  .header-inner {
+    flex-shrink: 0;
+    width: 224px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 1.7rem 1.2rem;
+    border-right: 1px solid var(--border);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 3.4rem;
+    flex-direction: column;
+    gap: 2.6rem;
   }
   .brand {
     display: flex;
@@ -79,14 +82,60 @@
   .logo-mark span:nth-child(3) { background: #edbe6e; }
   .logo-mark span:nth-child(4) { background: #9ca2ab; }
 
-  nav.links {
-    display: flex;
-    gap: 1.7rem;
-    font-size: 0.78rem;
+  .side-nav { display: flex; flex-direction: column; gap: 0.2rem; }
+  .side-nav a {
+    position: relative;
+    padding: 0.6rem 0.75rem 0.6rem 0.95rem;
+    border-radius: 8px;
+    font-size: 0.86rem;
+    font-weight: 500;
     color: var(--ink-dim);
+    text-decoration: none;
+    transition: color 0.15s ease, background 0.15s ease;
   }
-  nav.links a { text-decoration: none; color: inherit; transition: color 0.15s; }
-  nav.links a:hover { color: var(--ink); }
+  .side-nav a:hover { color: var(--ink); background: var(--bg-panel); }
+  .side-nav a.active { color: var(--ink); background: var(--accent-soft); font-weight: 600; }
+  .side-nav a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.35rem;
+    bottom: 0.35rem;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+  .page { flex: 1; min-width: 0; }
+
+  @media (max-width: 760px) {
+    .app { flex-direction: column; }
+    .sidebar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0.65rem 1.1rem;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow-x: auto;
+    }
+    .side-nav { flex-direction: row; gap: 0.2rem; }
+    .side-nav a.active::before {
+      left: 0.2rem;
+      right: 0.2rem;
+      top: auto;
+      bottom: 0;
+      width: auto;
+      height: 2px;
+    }
+  }
 
   /* ---------- hero ---------- */
   .hero {
@@ -146,12 +195,6 @@
     gap: 0.7rem;
     margin-bottom: 2.6rem;
   }
-  .btn-row {
-    display: flex;
-    gap: 0.7rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
   .btn-download {
     display: inline-flex;
     align-items: center;
@@ -169,16 +212,6 @@
   .btn-download:hover {
     transform: translateY(-1px);
     box-shadow: 0 16px 40px rgba(99, 102, 241, 0.45);
-  }
-  .btn-download.secondary {
-    background: transparent;
-    color: var(--ink);
-    border: 1px solid var(--border);
-    box-shadow: none;
-  }
-  .btn-download.secondary:hover {
-    border-color: var(--accent);
-    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.18);
   }
   .btn-download svg { flex-shrink: 0; }
   .hero-cta-note {
@@ -538,7 +571,6 @@
   }
 
   @media (max-width: 760px) {
-    nav.links { display: none; }
     .feature { padding: 4.5rem 0; }
     .platform-cards { grid-template-columns: 1fr; }
     .hero { padding-top: 5rem; }
@@ -554,25 +586,20 @@
 </head>
 <body>
 
-<header>
-  <div class="wrap header-inner">
-    <a class="brand" href="#top">
-      <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
-      WakeStride
-    </a>
-    <nav class="links">
-      <a href="#matrix">매트릭스</a>
-      <a href="#calendar">캘린더</a>
-      <a href="#note">노트</a>
-      <a href="#dashboard">대시보드</a>
-      <a href="#wbs">프로젝트 보드</a>
-      <!-- 태블릿 섹션은 삭제됨, 모바일 섹션은 계속 주석 처리 상태(2026-08-13) -->
-      <a href="#widget">위젯</a>
-      <a href="manual.html">사용 설명서</a>
-      <a href="release-notes.html">릴리즈 노트</a>
-    </nav>
-  </div>
-</header>
+<div class="app">
+<aside class="sidebar">
+  <a class="brand" href="index.html">
+    <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+    WakeStride
+  </a>
+  <nav class="side-nav">
+    <a href="index.html" class="active">소개</a>
+    <a href="download.html">다운로드</a>
+    <a href="manual.html">매뉴얼</a>
+    <a href="release-notes.html">릴리즈</a>
+  </nav>
+</aside>
+<div class="page">
 
 <main id="top">
   <section class="hero wrap">
@@ -580,16 +607,10 @@
     <h1>일의 순서를,<br /><span class="accent-text">다시 정의하다.</span></h1>
     <p>중요한 일과 급한 일을 가려내고,<br />캘린더와 노트가 그 흐름을 그대로 이어갑니다.</p>
     <div class="hero-cta">
-      <div class="btn-row">
-        <a class="btn-download" href="downloads/wakestride_0.2.1_x64-setup.exe" download>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          Windows용 다운로드
-        </a>
-        <a class="btn-download secondary" href="downloads/wakestride_0.2.1_aarch64.zip" download>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          macOS용 다운로드
-        </a>
-      </div>
+      <a class="btn-download" href="download.html">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        다운로드
+      </a>
       <div class="hero-cta-note">무료 · 서버 없음 · 회원가입 없음 · v0.2.1 · <a href="release-notes.html">릴리즈 노트</a></div>
     </div>
     <div class="platform-pills">
@@ -782,13 +803,14 @@
     </div>
     <div>Tauri · React · Rust 로 만든 개인 생산성 앱</div>
     <div style="margin-top: 0.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="manual.html">사용 설명서</a>
-      <a href="release-notes.html">릴리즈 노트</a>
       <a href="privacy.html">개인정보처리방침</a>
       <a href="license.html">이용약관</a>
     </div>
   </div>
 </footer>
+
+</div>
+</div>
 
 <script>
   (function () {
