@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>WakeStride — 일의 순서를, 다시 정의하다</title>
+<link rel="icon" type="image/png" href="images/app-icon.png" />
 <style>
   :root {
     --bg: #000000;
@@ -67,20 +68,11 @@
   .logo-mark {
     width: 1.3rem;
     height: 1.3rem;
-    border-radius: 4px;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 1.5px;
-    background: #000;
-    padding: 1.5px;
+    border-radius: 22%;
     flex-shrink: 0;
+    display: block;
+    object-fit: cover;
   }
-  .logo-mark span:nth-child(1) { background: #e76e82; }
-  .logo-mark span:nth-child(2) { background: #70b8eb; }
-  .logo-mark span:nth-child(3) { background: #edbe6e; }
-  .logo-mark span:nth-child(4) { background: #9ca2ab; }
 
   .side-nav { display: flex; flex-direction: column; gap: 0.2rem; }
   .side-nav a {
@@ -589,7 +581,7 @@
 <div class="app">
 <aside class="sidebar">
   <a class="brand" href="index.html">
-    <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+    <img class="logo-mark" src="images/app-icon.png" alt="" />
     WakeStride
   </a>
   <nav class="side-nav">
@@ -798,7 +790,7 @@
 <footer>
   <div class="wrap">
     <div class="foot-brand">
-      <span class="logo-mark"><span></span><span></span><span></span><span></span></span>
+      <img class="logo-mark" src="images/app-icon.png" alt="" />
       WakeStride
     </div>
     <div>Tauri · React · Rust 로 만든 개인 생산성 앱</div>
