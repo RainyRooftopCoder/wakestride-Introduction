@@ -27,6 +27,9 @@
     font-family: var(--font);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    /* 모바일 너비에서 제목이 줄바꿈될 때 "됩니다" 같은 한글 단어가 음절
+       중간에서 잘리는 것을 막음(2026-08-21, 모바일 대응 점검 중 발견). */
+    word-break: keep-all;
   }
 
   img { display: block; max-width: 100%; }
@@ -329,12 +332,14 @@
     text-align: left;
     max-width: none;
     margin: 0;
+    min-width: 0;
   }
   .split .feature-head .eyebrow { justify-content: flex-start; }
-  .split .shot-frame { max-width: 100%; margin: 0; }
+  .split .shot-frame { max-width: 100%; margin: 0; min-width: 0; }
   .split.split-reverse { grid-template-columns: minmax(320px, 1.35fr) minmax(260px, 1fr); }
   @media (max-width: 860px) {
-    .split { grid-template-columns: 1fr; }
+    .split,
+    .split.split-reverse { grid-template-columns: minmax(0, 1fr); }
     .split .feature-head { text-align: center; }
     .split .feature-head .eyebrow { justify-content: center; }
   }
